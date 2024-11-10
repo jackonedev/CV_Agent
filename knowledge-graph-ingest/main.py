@@ -2,7 +2,7 @@ import asyncio
 from datetime import datetime
 import logging.config
 import os
-from hashlib import md5
+
 
 from langchain_community.graphs import Neo4jGraph
 from langchain_text_splitters import TokenTextSplitter
@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 
 from models.input_chain import input_chain
 from tools.file_extraction import extract_docx
+from tools.utils import encode_md5
 
 load_dotenv()
 
@@ -34,9 +35,6 @@ logging.config.dictConfig(
 )
 
 
-def encode_md5(text):
-    return md5(text.encode("utf-8")).hexdigest()
-
 async def process_document(text, document_name, chunk_size=2000, chunk_overlap=200):
     start = datetime.now()
     print(f"Started extraction at: {start}")
@@ -60,7 +58,6 @@ async def process_document(text, document_name, chunk_size=2000, chunk_overlap=2
         doc["index"] = index
         for af in doc["atomic_facts"]:
             af["id"] = encode_md5(af["atomic_fact"])
-            # doc["atomic_facts"].update({"id": encode_md5(af["atomic_fact"])})#TODO: MI FORMA DE VERLO
     # Import chunks/atomic facts/key elements
     graph.query(
         """\
