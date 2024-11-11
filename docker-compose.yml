@@ -1,0 +1,9 @@
+services:
+  chainlit_ui:
+    build:
+      context: ./langgraph-agent
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./langgraph-agent:/app
