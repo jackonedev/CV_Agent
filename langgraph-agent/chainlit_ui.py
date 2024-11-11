@@ -12,8 +12,10 @@ async def init():
     log_action("Langgraph agent initialized")
     msg = cl.Message(
         """\
-Hello! I am a chatbot who can help you with questions related to Agustín Stigliano personal CV.
-Hope to be helpful!
+Hello! I am an assistant who can help you with questions related to Agustín F. Stigliano personal CV.
+Hope to be helpful! Have fun!
+
+Disclaimer: The assistant does not have memory, please provide all the necessary information on each question.
 """
     )
 
