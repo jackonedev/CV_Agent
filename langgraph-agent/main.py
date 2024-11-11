@@ -1,8 +1,5 @@
 from typing import Literal
 
-from langgraph.graph import END, START, StateGraph
-
-from models.schemas.state_schemas import InputState, OutputState, OverallState
 from inference_call import (
     answer_reasoning,
     atomic_fact_check,
@@ -11,6 +8,8 @@ from inference_call import (
     neighbor_select,
     rational_plan_node,
 )
+from langgraph.graph import END, START, StateGraph
+from models.schemas.state_schemas import InputState, OutputState, OverallState
 
 
 def atomic_fact_condition(

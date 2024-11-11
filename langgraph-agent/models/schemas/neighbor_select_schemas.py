@@ -14,4 +14,3 @@ on one neighbor node at a time.
 2. termination(): Choose this action if you believe that none of the neighboring nodes possess
 information that could answer the question."""
     )
-

@@ -1,15 +1,12 @@
 import asyncio
-from datetime import datetime
 import logging.config
+from datetime import datetime
 
 from langchain_text_splitters import TokenTextSplitter
-
 from models.input_chain import input_chain
+from utils.client import graph
 from utils.file_extraction import extract_docx
 from utils.utils import encode_md5
-from utils.client import graph
-
-
 
 # Set log level to DEBUG for all neo4j_graphrag.* loggers
 logging.config.dictConfig(
@@ -32,7 +29,9 @@ logging.config.dictConfig(
 )
 
 
-async def process_document(text, document_name, chunk_size=2000, chunk_overlap=200):
+async def process_document(
+    text, document_name, chunk_size=2000, chunk_overlap=200
+):
     start = datetime.now()
     print(f"Started extraction at: {start}")
     text_splitter = TokenTextSplitter(
@@ -41,9 +40,14 @@ async def process_document(text, document_name, chunk_size=2000, chunk_overlap=2
     texts = text_splitter.split_text(text)
     print(f"Total text chunks: {len(texts)}")
     tasks = [
-        asyncio.create_task(input_chain.ainvoke(
-            {"input": chunk_text, "context": "Agustin Federico Stigliano GenAI Developer CV"}
-        ))
+        asyncio.create_task(
+            input_chain.ainvoke(
+                {
+                    "input": chunk_text,
+                    "context": "Agustin Federico Stigliano GenAI Developer CV",
+                }
+            )
+        )
         for index, chunk_text in enumerate(texts)
     ]
     results = await asyncio.gather(*tasks)
@@ -76,7 +80,7 @@ UNWIND af.key_elements AS ke
 MERGE (k:KeyElement {id: ke})
 MERGE (a)-[:HAS_KEY_ELEMENT]->(k)
 """,
-        params={"data": docs, "document_name": document_name}
+        params={"data": docs, "document_name": document_name},
     )
     # Create next relationships between chunks
     graph.query(
@@ -96,7 +100,9 @@ MERGE (start)-[:NEXT]->(end)
 async def main(file_path, document_name):
 
     # Executing neo4j query for building nodes
-    graph.query("CREATE CONSTRAINT IF NOT EXISTS FOR (c:Chunk) REQUIRE c.id IS UNIQUE")
+    graph.query(
+        "CREATE CONSTRAINT IF NOT EXISTS FOR (c:Chunk) REQUIRE c.id IS UNIQUE"
+    )
     graph.query(
         "CREATE CONSTRAINT IF NOT EXISTS FOR (c:AtomicFact) REQUIRE c.id IS UNIQUE"
     )
@@ -106,16 +112,18 @@ async def main(file_path, document_name):
 
     text = extract_docx(file_path)
 
-    await process_document(text, document_name, chunk_size=800, chunk_overlap=100)
+    await process_document(
+        text, document_name, chunk_size=800, chunk_overlap=100
+    )
 
 
 if __name__ == "__main__":
-    
+
     asyncio.run(
         main(
             file_path="db_files/docx/Agus_Stigliano-GenAI_Developer.docx",
             document_name="Agustin Federico Stigliano CV",
         )
     )
-    
+
     print("Done!", end="\n\n")

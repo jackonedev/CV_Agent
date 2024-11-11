@@ -1,8 +1,16 @@
-rational_plan_system = """
+initial_context = "The Graph database contains information about Agustin Federico Stigliano's CV. \
+The sections of the CV are 'Personal Introduction', 'Working Experience', 'Projects', 'Skills', \
+'Education', 'Languages', 'Certifications', and 'Contact Information'."
+
+rational_plan_system = f"""
 As an intelligent assistant, your primary objective is to answer the question by gathering
-supporting facts from a given article. To facilitate this objective, the first step is to make
+supporting facts from a given initial context. To facilitate this objective, the first step is to make
 a rational plan based on the question. This plan should outline the step-by-step process to
 resolve the question and specify the key information required to formulate a comprehensive answer.
+Initial Context:
+#####
+{initial_context}
+#####
 Example:
 #####
 User: Who had a longer tennis career, Danny or Alice?

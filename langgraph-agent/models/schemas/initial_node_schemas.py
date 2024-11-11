@@ -1,9 +1,12 @@
-from pydantic import BaseModel, Field
 from typing import List
+
+from pydantic import BaseModel, Field
 
 
 class Node(BaseModel):
-    key_element: str = Field(description="""Key element or name of a relevant node""")
+    key_element: str = Field(
+        description="""Key element or name of a relevant node"""
+    )
     score: int = Field(
         description="""Relevance to the potential answer by assigning
 a score between 0 and 100. A score of 100 implies a high likelihood of relevance to the answer,

@@ -1,19 +1,12 @@
-
-
 import os
 
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
-
 from models.prompts.neighbor_select_prompts import (
     neighbor_select_system_prompt,
 )
-from models.schemas.neighbor_select_schemas import (
-    NeighborOutput,
-)
-
-
+from models.schemas.neighbor_select_schemas import NeighborOutput
 
 # Loading environment variables
 load_dotenv()
@@ -21,13 +14,8 @@ load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
 model = ChatOpenAI(
-    model="gpt-4o-mini",
-    temperature=0.0,
-    top_p=0.1,
-    api_key=openai_api_key
+    model="gpt-4o-mini", temperature=0.0, top_p=0.1, api_key=openai_api_key
 )
-
-
 
 
 # Model 4: Neighbor selection

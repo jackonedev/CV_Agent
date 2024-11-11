@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
-
 from models.prompts.input_prompts import input_message
 from models.schemas.input_schemas import Extraction
 
@@ -12,9 +11,11 @@ load_dotenv()
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
-model = ChatOpenAI(model="gpt-4o-mini", temperature=0.1, api_key=openai_api_key)
+model = ChatOpenAI(
+    model="gpt-4o-mini", temperature=0.1, api_key=openai_api_key
+)
 
-# Model 0: Input (Injest) chain
+# Model 0: Input chain
 input_prompt = ChatPromptTemplate(
     [
         ("system", input_message),

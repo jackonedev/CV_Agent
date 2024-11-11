@@ -1,6 +1,9 @@
-import os, re
-from pypdf import PdfReader
+import os
+import re
+
 from docx import Document
+from pypdf import PdfReader
+
 
 def extract_pdfs(pdf_files: list) -> dict:
     # PDF files data extraction
@@ -12,11 +15,13 @@ def extract_pdfs(pdf_files: list) -> dict:
 
     return extractions_dict
 
+
 def extract_pdf(file_path: str) -> str:
     """Return the text of a PDF file as a single string."""
     reader = PdfReader(file_path)
     text = "".join("\n".join(page.extract_text() for page in reader.pages))
     return text
+
 
 def extract_docx(file_path: str) -> str:
     """Return the text of a PDF file as a single string."""
@@ -28,5 +33,7 @@ def extract_docx(file_path: str) -> str:
 def extract_patterns(text: str, pattern: str) -> list:
     """Extract the whole lines from a PDF file in which the specified pattern is found."""
     lines = text.split("\n")
-    matches = [line.replace(".", "") for line in lines if re.search(pattern, line)]
+    matches = [
+        line.replace(".", "") for line in lines if re.search(pattern, line)
+    ]
     return matches
