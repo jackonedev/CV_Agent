@@ -1,18 +1,15 @@
 import asyncio
 from datetime import datetime
 import logging.config
-import os
 
-
-from langchain_community.graphs import Neo4jGraph
 from langchain_text_splitters import TokenTextSplitter
-from dotenv import load_dotenv
 
 from models.input_chain import input_chain
-from tools.file_extraction import extract_docx
-from tools.utils import encode_md5
+from utils.file_extraction import extract_docx
+from utils.utils import encode_md5
+from utils.client import graph
 
-load_dotenv()
+
 
 # Set log level to DEBUG for all neo4j_graphrag.* loggers
 logging.config.dictConfig(
@@ -96,8 +93,8 @@ MERGE (start)-[:NEXT]->(end)
     print(f"Finished import at: {datetime.now() - start}")
 
 
-async def main():
-    global graph, file_path
+async def main(file_path, document_name):
+
     # Executing neo4j query for building nodes
     graph.query("CREATE CONSTRAINT IF NOT EXISTS FOR (c:Chunk) REQUIRE c.id IS UNIQUE")
     graph.query(
@@ -109,22 +106,16 @@ async def main():
 
     text = extract_docx(file_path)
 
-    await process_document(text, "Agustin Federico Stigliano CV", chunk_size=800, chunk_overlap=100)
+    await process_document(text, document_name, chunk_size=800, chunk_overlap=100)
 
 
 if __name__ == "__main__":
     
-    # Connect to the Neo4j database
-    URI = os.getenv("NEO4J_URI")
-    AUTH = (os.getenv("NEO4J_USERNAME"), os.getenv("NEO4J_PASSWORD"))
-    graph = Neo4jGraph(
-        refresh_schema=False,
-        url=URI,
-        username=AUTH[0],
-        password=AUTH[1],
+    asyncio.run(
+        main(
+            file_path="db_files/docx/Agus_Stigliano-GenAI_Developer.docx",
+            document_name="Agustin Federico Stigliano CV",
+        )
     )
-    
-    file_path = "db_files/docx/Agus_Stigliano-GenAI_Developer.docx"
-    asyncio.run(main())
     
     print("Done!", end="\n\n")
