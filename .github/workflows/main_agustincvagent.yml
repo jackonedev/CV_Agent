@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: cvagent.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4ca5ecd909c4402584ad81c30bf1e18a }}/images:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./langgraph-agent/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
