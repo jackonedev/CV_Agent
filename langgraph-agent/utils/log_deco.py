@@ -6,6 +6,7 @@ from utils.log_funcs import log_error
 def log_exception(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
+        # pylint: disable=broad-exception-caught
         try:
             return func(*args, **kwargs)
         except Exception as e:
