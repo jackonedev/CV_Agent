@@ -3,7 +3,8 @@ format:
 	autopep8 --in-place ./*/*.py &&\
 	black --line-length 79 . --exclude '(\.venv)'
 
-lint:
+lint-ingest:
 	cd ./knowledge-graph-ingest && pylint --disable=R,C ./*.py
-	cd ..
+
+lint-agent:
 	cd ./langgraph-agent && pylint --disable=R,C ./*.py

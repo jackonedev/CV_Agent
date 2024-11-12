@@ -26,6 +26,8 @@ env:
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'langgraph-agent/**'
   workflow_dispatch:
 
 permissions:
@@ -46,13 +48,17 @@ jobs:
 
       - name: Create and start virtual environment
         run: |
-          python -m venv venv
-          source venv/bin/activate
+          python -m venv langgraph-agent/venv
+          source langgraph-agent/venv/bin/activate
 
       - name: Install dependencies
-        run: pip install -r langgraph-agent/requirements.txt
+        run: |
+          source langgraph-agent/venv/bin/activate
+          pip install -r langgraph-agent/requirements.txt
 
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+      - name: Run pylint
+        run: |
+          make lint-agent
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
@@ -60,7 +66,7 @@ jobs:
           name: python-app
           path: |
             langgraph-agent/
-            !venv/
+            !langgraph-agent/venv/
 
   deploy:
     permissions:
@@ -76,7 +82,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: python-app
-          path: .
+          path: langgraph-agent
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -84,3 +90,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: langgraph-agent

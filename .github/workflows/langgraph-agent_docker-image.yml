@@ -3,8 +3,13 @@ name: Docker Image CI - 'langgraph-agent'
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'langgraph-agent/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'langgraph-agent/**'
+  workflow_dispatch:
 
 jobs:
 
