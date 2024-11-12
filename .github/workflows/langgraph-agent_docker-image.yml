@@ -20,5 +20,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag chainlit_ui:$(date +%s)
-      working-directory: ./langgraph-agent
+      run: docker build . --file langgraph-agent/Dockerfile --tag chainlit_ui:$(date +%s)

@@ -5,11 +5,11 @@
 name: Build and deploy Python app to Azure Web App - cvchain
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'langgraph-agent/**'
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'langgraph-agent/**'
   workflow_dispatch:
 
 jobs:
