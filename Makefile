@@ -1,3 +1,10 @@
+install:
+	python -m pip install --upgrade pip
+	cd ./knowledge-graph-ingest && pip install -r requirements.txt
+	cd ..
+	cd ./langgraph-agent && pip install -r requirements.txt
+
+
 format:
 	isort --profile=black --skip .venv . &&\
 	autopep8 --in-place ./*/*.py &&\

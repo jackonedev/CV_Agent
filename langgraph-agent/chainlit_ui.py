@@ -13,6 +13,9 @@ async def init():
     msg = cl.Message(
         """\
 Hello! I am an assistant who can help you with questions related to Agustín F. Stigliano personal CV.
+
+Link: [Agustín F. Stigliano CV](https://docs.google.com/document/d/1YzHv5wa8JtCjVXK_tQbaUKlYJUlVjZNl/edit?usp=sharing&ouid=104436254820297248106&rtpof=true&sd=true)
+
 Hope to be helpful! Have fun!
 
 Disclaimer: The assistant does not have memory, please provide all the necessary information on each question.
