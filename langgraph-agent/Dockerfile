@@ -10,13 +10,13 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+# Copy only requirements.txt first to leverage Docker cache for dependencies
+COPY langgraph-agent/requirements.txt /app/requirements.txt
 RUN --mount=type=cache,target=/root/.cache/pip \
-    --mount=type=bind,source=requirements.txt,target=requirements.txt \
-    python -m pip install -r requirements.txt
+    python -m pip install -r /app/requirements.txt
 
-
-# Copy the source code into the container.
-COPY . .
+# Copy only the relevant files and directories
+COPY langgraph-agent/ /app/
 
 # Expose the port that the application listens on.
 EXPOSE 8000
