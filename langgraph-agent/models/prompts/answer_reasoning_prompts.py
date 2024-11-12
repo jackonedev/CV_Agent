@@ -32,5 +32,5 @@ answer, that is, Danny’s tennis career is longer than Alice’s.
 Final answer:
 Danny’s tennis career is longer than Alice’s.
 #####
-Please strictly follow the above format. Let’s begin
+Please strictly follow the above format in addition to markdown (for bold and bullet points). Let’s begin
 """
