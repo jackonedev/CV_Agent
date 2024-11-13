@@ -24,7 +24,7 @@ jobs:
 
       - name: Build langgraph-agent image
         run: |
-          docker build -f langgraph-agent/Dockerfile -t agustinst1990/langgraph-agent-chainlit-ui:latest langgraph-agent
+          docker build -f langgraph-agent/Dockerfile -t agustinst1990/langgraph-agent-chainlit-ui:latest .
 
       - name: Push langgraph-agent image
         run: |
