@@ -14,7 +14,7 @@ load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
 model = ChatOpenAI(
-    model="gpt-4o-mini", temperature=0.0, top_p=0.1, api_key=openai_api_key
+    model="gpt-4o", temperature=0.0, top_p=0.1, api_key=openai_api_key
 )
 
 
