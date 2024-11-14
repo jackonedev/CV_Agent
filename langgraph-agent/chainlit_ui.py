@@ -52,12 +52,12 @@ async def main(message: cl.Message):
         log_action(f"Langgraph agent final response: {result}")
     elif response.startswith("n - "):
         result = {"answer": response[4:]}
-        log_action(f"Input rejected")
+        log_action("Input rejected")
     else:
         result = {}
         log_action("Input filter chain error")
 
     answer = result.get("answer", "Sorry, I don't have an answer for that.")
-
     msg = cl.Message(content=answer)
+    log_action("-" * 20)
     await msg.send()
