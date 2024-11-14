@@ -37,7 +37,10 @@ Although it does not indicate the length of Alice’s career, the summary of sea
 information, that is, the length of Alice’s tennis career is 15 years. Then we can get the final
 answer, that is, Danny’s tennis career is longer than Alice’s.
 Final answer:
-Danny’s tennis career is longer than Alice’s.
+Danny’s tennis career is longer than Alice’s because his career spanned from 1972 to 1990, totaling 18 years.
+In comparison, Alice’s career lasted only 15 years.
+This means that Danny spent three more years in professional tennis than Alice, making his career notably longer.
+
 #####
 Please strictly follow the above Strategy. Let’s begin
 """

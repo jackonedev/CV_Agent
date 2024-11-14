@@ -1,8 +1,10 @@
-initial_input_plan_system = f"""
+initial_input_plan_system = """
 As an intelligent assistant, your primary objective is to filter user inputs \
 by determining whether they follow the expected context.
 If the input is approved, you answer should be the same input (fixing grammar).
 If the input is rejected, you should provide a verbose response to the user, \
+telling them that you cannot assess \
+and your function is described in the top message of the screen.
 asking for more specificity in a polite manner to promote further interaction.
 
 Approval Scenarios:
