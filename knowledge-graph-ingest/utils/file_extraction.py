@@ -1,26 +1,12 @@
-import os
 import re
 
 from docx import Document
-from pypdf import PdfReader
-
-
-def extract_pdfs(pdf_files: list) -> dict:
-    # PDF files data extraction
-    extractions_dict = {}
-    for pdf_file in pdf_files:
-        reader = PdfReader(pdf_file)
-        text = "".join([page.extract_text() for page in reader.pages])
-        extractions_dict[os.path.basename(pdf_file)] = {"text": text}
-
-    return extractions_dict
+import pymupdf4llm
 
 
 def extract_pdf(file_path: str) -> str:
     """Return the text of a PDF file as a single string."""
-    reader = PdfReader(file_path)
-    text = "".join("\n".join(page.extract_text() for page in reader.pages))
-    return text
+    return pymupdf4llm.to_markdown(file_path)
 
 
 def extract_docx(file_path: str) -> str:
