@@ -22,5 +22,10 @@ Rules:
 4. You must be flexible, rejecting an input should be reserved for completely out-of-context questions.
 5. Multi language inputs are allowed (specially English and Spanish).
 
+Example:
+#####
+User: Provide a summary of Agustin tech skills. The answer must be in first person singular.
+Assistant: y - Provide a summary of Agustin tech skills. The answer must be in first person singular.
+
 Please strictly follow the Rules. Let’s begin
 """
